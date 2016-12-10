@@ -21,8 +21,10 @@ class Project(models.Model):
     end_date = models.DateField(null=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     raised_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    cause = models.ForeignKey('Cause', on_delete = models.SET('uncategorised')) #FK... should be dynamic
-    ngo_id = models.ForeignKey('NGO', on_delete = models.SET('no_NGO_attached'))#FK #Can be a many-to-many relation?
+    cause = models.CharField(max_length=30)
+    ngo_id = models.IntegerField(blank=False)
+    # cause = models.ForeignKey('Cause', on_delete = models.SET('uncategorised')) #FK... should be dynamic
+    # ngo_id = models.ForeignKey('NGO', on_delete = models.SET('no_NGO_attached'))#FK #Can be a many-to-many relation?
     zip = models.IntegerField(blank = True)
     person_of_contact = models.CharField(max_length = 100)
     summary = models.CharField(max_length = 500, blank = False)
@@ -46,7 +48,7 @@ class Consultant(models.Model):
     name = models.CharField(max_length = 200)
 
     def __unicode__(self):
-        return self.consultant_name
+        return self.name
 
 class Audit(models.Model):
     date = models.DateField(null=False)
@@ -55,7 +57,7 @@ class Audit(models.Model):
     project_id = models.IntegerField(null = False)
 
     def __unicode__(self):
-        return "%s : %s" % (self.project_ID, self.consultant_ID)
+        return "%s : %s" % (self.project_id, self.consultant_id)
 
 
 

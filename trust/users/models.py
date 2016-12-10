@@ -5,6 +5,8 @@ class Donor(models.Model):
     mobile = models.BigIntegerField(null = True)
     email = models.EmailField(max_length = 254)
     transaction_id = models.BigIntegerField(null = False)
+    def __unicode__(self):
+        return self.name
 
 class Donation(models.Model):
     transaction_id = models.BigIntegerField(null = False)
