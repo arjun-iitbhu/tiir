@@ -1,6 +1,7 @@
 from django.db import models
 
 class Donor(models.Model):
+    donor_id = models.CharField(max_length=10, blank=False)
     name = models.CharField(max_length=128, blank=False,)
     mobile = models.BigIntegerField(null = True)
     email = models.EmailField(max_length = 254)

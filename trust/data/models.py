@@ -3,19 +3,20 @@ from datetime import date
 
 #KEYS NOT YET SPECIFIED
 class Cause(models.Model):
+    cause_id = models.CharField(max_length=10, blank=False)
     name = models.CharField(max_length = 60, blank = False)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __unicode__(self):
         return "%s : %s" % (self.name, self.total_amount)
 
-# CAUSES = Cause.objects.all()
-# print CAUSES
-#  #to retrieve all the added causes... NEEDS TO BE CHECKED....
+print Cause.objects.values_list('name')
+#to retrieve all the added causes... NEEDS TO BE CHECKED....
 #maybe server needs to be restarted to load it... need to be checked
 #ALWAYS COMMENT IT OUT FIRST AND THEN SYNC THE DATABASE AND THEN UNCOMMENT IT
 
 class Project(models.Model):
+    project_id = models.CharField(max_length=10, blank=False)
     title = models.CharField(max_length=128, blank=False,)
     start_date = models.DateField(null=False)
     end_date = models.DateField(null=True)
@@ -34,6 +35,7 @@ class Project(models.Model):
         return self.title
 
 class NGO(models.Model):
+    ngo_id = models.CharField(max_length=10, blank=False)
     name = models.CharField(max_length = 200, blank = False)
     person_of_contact = models.CharField(max_length=100)
     registration_code = models.BigIntegerField(null = False)
@@ -45,12 +47,14 @@ class NGO(models.Model):
         return self.name
 
 class Consultant(models.Model):
+    consultant_id = models.CharField(max_length=10, blank=False)
     name = models.CharField(max_length = 200)
 
     def __unicode__(self):
         return self.name
 
 class Audit(models.Model):
+    audit_id = models.CharField(max_length=10, blank=False)
     date = models.DateField(null=False)
     report_id = models.IntegerField(null = False)#report model needs to be added||Will there be more than one report for a project?
     consultant_id = models.IntegerField(null = False)
