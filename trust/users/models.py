@@ -1,4 +1,5 @@
 from django.db import models
+from data.models import Project
 
 class Donor(models.Model):
     donor_id = models.CharField(max_length=10, blank=False)
@@ -11,8 +12,8 @@ class Donor(models.Model):
 
 class Donation(models.Model):
     transaction_id = models.BigIntegerField(null = False)
-    donor_id = models.BigIntegerField(null = False)
-    project_id = models.BigIntegerField(null = False)
+    donor_id = models.ForeignKey('Donor', on_delete=models.SET('donor not assigned'))
+    project_id = models.ForeignKey(Project, on_delete=models.SET('project not set'))
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField(null = False)
     time = models.TimeField(auto_now = True)
